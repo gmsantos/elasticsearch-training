@@ -140,7 +140,10 @@ GET myecommerce/_search
                "should": [
                   {
                      "prefix": {
-                        "nome": {"value": "{{query}}", "boost": 2.5 }
+                        "nome": {   
+                           "value": "{{query}}",
+                           "boost": 2.5
+                        }
                      }
                   },
                   {
@@ -159,6 +162,46 @@ GET myecommerce/_search
          "params": {
             "query": "java"
          }
+      }
+   }
+}
+
+GET myecommerce/_search
+{
+   "query": {
+      "template": {
+         "inline": {
+            "bool": {
+               "should": [
+                  {
+                     "prefix": {
+                        "nome": {
+                           "value": "{{query}}",
+                           "boost": 2.5
+                        }
+                     }
+                  },
+                  {
+                     "match_phrase": {
+                        "nome": "{{query}}"
+                     }
+                  },
+                  {
+                     "match": {
+                        "nome": "{{query}}"
+                     }
+                  }
+               ]
+            }
+         },
+         "params": {
+            "query": "java"
+         }
+      }
+   },
+   "highlight": {
+      "fields": {
+         "nome": {}
       }
    }
 }
