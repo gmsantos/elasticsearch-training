@@ -1,9 +1,7 @@
 version: '2'
 services:
   es:
-    build:
-      context: .
-      dockerfile: Dockerfile_es
+    build: .
     volumes:
       - /mnt/sda1/data/es-training/es:/usr/share/elasticsearch/data
     ports:
@@ -11,9 +9,13 @@ services:
       - 9300:9300
     links:
       - es2
+    environment:
+      - ES_HOST=es
+      - OTHER_HOST=es2
   es2:
-    build:
-      context: .
-      dockerfile: Dockerfile_es2
+    build: .
     volumes:
       - /mnt/sda1/data/es-training/es2:/usr/share/elasticsearch/data
+    environment:
+      - ES_HOST=es2
+      - OTHER_HOST=es
