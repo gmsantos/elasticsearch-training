@@ -7,8 +7,8 @@ USER elasticsearch
 CMD elasticsearch \
   --user=elasticsearch \
   --cluster.name=unicast \
-  --network.publish_host=es2 \
+  --network.publish_host=es3 \
   --discovery.zen.ping.multicast.enabled=false \
-  --discovery.zen.ping.unicast.hosts=es,es3 \
+  --discovery.zen.ping.unicast.hosts=es,es2 \
   --discovery.zen.ping.timeout=3s \
   --discovery.zen.minimum_master_nodes=1

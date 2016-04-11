@@ -1,0 +1,30 @@
+PUT /workshop
+
+PUT /workshop2
+{
+    "settings": {
+        "number_of_replicas": 1,
+        "number_of_shards": 3
+    }
+}
+
+PUT /workshop3
+{
+    "settings": {
+        "number_of_replicas": 2,
+        "number_of_shards": 3
+    }
+}
+
+PUT /workshop/person/2
+{
+    "telefone": 20161021
+}
+
+POST /workshop/person/
+{
+    "idade": "novinha",
+    "telefone": 20161021
+}
+
+GET workshop/_mapping

@@ -1,0 +1,101 @@
+POST /workshop/products
+{
+    "titulo": "Meu produto",
+    "descricao": "Produto bom...",
+    "dataInclusao": "2014/01/01",
+    "preco": 150
+}
+
+POST /workshop/products
+{
+    "titulo": "Meu produto",
+    "descricao": "Produto bonzão...",
+    "dataInclusao": "2014/01/01"
+}
+
+GET workshop/_mapping
+
+POST /workshop/_search
+{
+   "query": {
+      "match_all": {}
+   }
+}
+
+POST /workshop/_search
+{
+   "query": {
+      "match": {
+          "descricao": "bonzão"
+      }
+   }
+}
+
+POST /workshop/_search
+{
+   "query": {
+      "term": {
+          "titulo": "meu"
+      }
+   }
+}
+
+POST /workshop/_search
+{
+   "query": {
+      "terms": {
+          "titulo": ["meu", "produto"]
+      }
+   }
+}
+
+POST /workshop/_search
+{
+   "query": {
+      "constant_score": {
+          "filter": {
+              "terms": {
+                  "titulo": ["meu", "produto"]
+              }
+          }
+      }
+   }
+}
+
+POST /workshop/_search
+{
+    "fields": [
+       "titulo"
+    ], 
+   "query": {
+      "terms": {
+          "titulo": ["meu", "produto"]
+      }
+   }
+}
+
+POST /workshop/_search
+{
+    "query": {
+      "match": {
+          "_all": "meu produto bonzão 2014"
+      }
+   }
+}
+
+POST /workshop/_search
+{
+   "sort": [
+      {
+         "preco": {
+            "missing": "_first"
+         }
+      }
+   ],
+   "query": {
+      "term": {
+         "titulo": "meu"
+      }
+   }
+}
+
