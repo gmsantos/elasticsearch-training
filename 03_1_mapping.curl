@@ -1,0 +1,105 @@
+GET /myecommerce/_mapping
+
+DELETE /myecommerce/
+PUT /myecommerce/
+{
+   "settings": {
+      "analysis": {
+         "analyzer": {
+            "minimal_brazilian_no_html": {
+               "type": "custom",
+               "tokenizer": "lowercase",
+               "filter": [
+                  "asciifolding",
+                  "stem_minimal_pt",
+                  "brazilian_stop"
+               ],
+               "char_filter": [
+                  "html_strip"
+               ]
+            }
+         },
+         "filter": {
+            "stem_minimal_pt": {
+               "type": "stemmer",
+               "language": "minimal_portuguese"
+            },
+            "brazilian_stop": {
+               "type": "stop",
+               "stopwords": "_brazilian_"
+            }
+         }
+      }
+   }
+}
+
+DELETE myecommerce/_mapping/comentario
+POST myecommerce/_mapping/comentario
+{
+   "comentario": {
+      "_parent": {
+         "type": "produto"
+      },
+      "properties": {
+         "inseridoEm": {
+            "type": "date"
+         },
+         "autor": {
+            "type": "string",
+            "fields": {
+               "raw": {
+                  "type": "string"
+               }
+            }
+         },
+         "text": {
+            "type": "string",
+            "analyzer": "minimal_brazilian_no_html"
+         },
+         "hashtags": {
+            "type": "string",
+            "fields": {
+               "suggest": {
+                  "type": "completion"
+               }
+            }
+         }
+      }
+   }
+}
+
+DELETE myecommerce/_mapping/produto
+POST myecommerce/_mapping/produto
+{
+   "produto": {
+      "properties": {
+         "inseridoEm": {
+            "type": "date"
+         },
+         "fabricante": {
+            "type": "string",
+            "fields": {
+               "raw": {
+                  "type": "string",
+                  "index":    "not_analyzed"
+               }
+            }
+         },
+         "descricao": {
+            "type": "string",
+            "analyzer": "minimal_brazilian_no_html"
+         },
+         "preco": {
+            "type": "long"
+         },
+         "hashtags": {
+            "type": "string",
+            "fields": {
+               "suggest": {
+                  "type": "completion"
+               }
+            }
+         }
+      }
+   }
+}

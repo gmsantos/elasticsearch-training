@@ -1,0 +1,164 @@
+POST myecommerce/_search
+{
+    "query": {
+
+            "must_not": [
+               {
+                   "match": {
+                      "nome": "java"
+                   }
+               }            
+            ],
+            "must": [
+               { 
+                   "bool": { 
+                        "should": [
+                            {
+                                "match": {"hastag" : "valeapena" }
+                            }    
+                        ]
+                    }
+               }
+            ]
+    }
+}
+
+POST myecommerce/_search
+{
+    "query": {
+        "has_child": {
+            "type": "comentario" , 
+            "query": {
+                "term": {
+                   "hashtag": "valeapena"
+                }
+            }
+        }
+    }
+}
+
+POST myecommerce/_search
+{
+    "query": {
+        "has_parent": {
+            "parent_type": "produto" , 
+            "query": {
+                "match": {
+                   "fabricante": "casa"
+                }
+            }
+        }
+    }
+}
+
+POST myecommerce/_search
+{
+   "query": {
+      "bool": {
+         "should": [
+            {
+               "has_parent": {
+                  "parent_type": "produto",
+                  "query": {
+                     "match": {
+                        "fabricante": "casa"
+                     }
+                  }
+               }
+            },
+            {
+               "has_child": {
+                  "type": "comentario",
+                  "query": {
+                     "term": {
+                        "hashtag": { "value": "valeapena", "boost": 0.1 }
+                     }
+                  }
+               }
+            }
+         ]
+      }
+   }
+}
+
+POST myecommerce/produto/6
+{
+   "inseridoEm":"2016-03-31",
+   "fabricante":"Casa do Código",
+   "nome":"Livrão",
+   "autor":"Paulo Silveira",
+   "hashtag":"#java #programacao #lambda",
+   "preco":48.90,
+   "tamanho": "30cm"
+}
+
+POST myecommerce/produto/_search
+{
+    "query": {
+        "bool": { "must_not": [
+           {"exists": {"field": "tamanho"}}
+        ]}        
+    }
+}
+
+GET /myecommerce/_search
+{
+    "query": {
+        "template": {
+            "inline": {
+                "term" : {
+                    "_all": "{{query_string}}"
+                }
+            },
+            "params": {
+               "query_string": "java" 
+            }
+        }
+    }
+}
+
+POST myecommerce/produto
+{
+   "fabricante":"Casa das Primas"
+}
+
+GET myecommerce/_search
+{
+    "query": {
+        "match_phrase": {
+           "fabricante": "Casa das Primas"
+        }
+    }
+}
+
+GET myecommerce/_search
+{
+   "query": {
+      "template": {
+         "inline": {
+            "bool": {
+               "should": [
+                  {
+                     "prefix": {
+                        "nome": {"value": "{{query}}", "boost": 2.5 }
+                     }
+                  },
+                  {
+                     "match_phrase": {
+                        "nome": "{{query}}"
+                     }
+                  },
+                  {
+                     "match": {
+                        "nome": "{{query}}"
+                     }
+                  }
+               ]
+            }
+         },
+         "params": {
+            "query": "java"
+         }
+      }
+   }
+}

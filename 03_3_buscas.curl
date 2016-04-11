@@ -1,0 +1,82 @@
+POST myecommerce/_search
+{
+    "query": {
+
+            "must_not": [
+               {
+                   "match": {
+                      "nome": "java"
+                   }
+               }            
+            ],
+            "must": [
+               { 
+                   "bool": { 
+                        "should": [
+                            {
+                                "match": {"hastag" : "valeapena" }
+                            }    
+                        ]
+                    }
+               }
+            ]
+    }
+}
+
+POST myecommerce/_search
+{
+    "query": {
+        "has_child": {
+            "type": "comentario" , 
+            "query": {
+                "term": {
+                   "hashtag": "valeapena"
+                }
+            }
+        }
+    }
+}
+
+POST myecommerce/_search
+{
+    "query": {
+        "has_parent": {
+            "parent_type": "produto" , 
+            "query": {
+                "match": {
+                   "fabricante": "casa"
+                }
+            }
+        }
+    }
+}
+
+POST myecommerce/_search
+{
+   "query": {
+      "bool": {
+         "should": [
+            {
+               "has_parent": {
+                  "parent_type": "produto",
+                  "query": {
+                     "match": {
+                        "fabricante": "casa"
+                     }
+                  }
+               }
+            },
+            {
+               "has_child": {
+                  "type": "comentario",
+                  "query": {
+                     "term": {
+                        "hashtag": { "value": "valeapena", "boost": 0.1 }
+                     }
+                  }
+               }
+            }
+         ]
+      }
+   }
+}

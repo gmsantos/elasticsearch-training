@@ -1,0 +1,80 @@
+POST myecommerce/produto/1
+{
+   "inseridoEm":"2016-04-02",
+   "fabricante":"Ciência Moderna",
+   "nome":"Explorando Elasticsearch Com Java",
+   "autor":"Luiz Santana",
+   "hashtag":"#nosql #bigdata #schemaless",
+   "preco":39.00
+}
+
+POST myecommerce/produto/2
+{
+   "inseridoEm":"2016-03-31",
+   "fabricante":"Casa do Código",
+   "nome":"Java 8 Prático: Lambdas, Streams e os Novos Recursos da Linguagem",
+   "autor":"Paulo Silveira",
+   "hashtag":"#java #programacao #lambda",
+   "preco":48.90
+}
+
+POST myecommerce/produto/3
+{
+   "inseridoEm":"2016-02-01",
+   "fabricante":"Casa do Código",
+   "nome":"PHP 7",
+   "autor":"Zé",
+   "hashtag":"#php #top",
+   "preco":8.90
+}
+
+POST myecommerce/produto/4
+{
+   "inseridoEm":"2016-03-31",
+   "fabricante":"MSPress",
+   "nome":"SQL Server 2016",
+   "autor":"Mr. Gates",
+   "hashtag":"#sql-server #relacional #top",
+   "preco":148.90
+}
+
+
+POST myecommerce/comentario/1?parent=1
+{
+   "inseridoEm":"2016-04-20",
+   "author":"João da Silva",
+   "text":"O livro contém os primeiros passos para iniciar no Elasticsearch.",
+   "hashtag":"#valeapena"
+}
+
+POST myecommerce/comentario/2?parent=2
+{
+   "inseridoEm":"2016-04-15",
+   "author":"João da Silva",
+   "text":"Ótimo livro! Recomendo.",
+   "hashtag":"#valeapena #lambda"
+}
+
+POST myecommerce/comentario/3?parent=2
+{
+   "inseridoEm":"2016-04-15",
+   "author":"João da Silva",
+   "text":"Ótimo livro! Recomendo.",
+   "hashtag":"#valeapena #lambda"
+}
+
+POST myecommerce/comentario/4?parent=2
+{
+   "inseridoEm":"2016-04-15",
+   "author":"João da Silva",
+   "text":"Ótimo livro! Recomendo.",
+   "hashtag":"#valeapena #lambda"
+}
+
+POST myecommerce/comentario/5?parent=4
+{
+   "inseridoEm":"2016-04-15",
+   "author":"Ravan",
+   "text":"Curto MS pacas",
+   "hashtag":"#valeapena #lambda"
+}
