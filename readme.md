@@ -25,6 +25,7 @@
 ## Ferramentas
   - Chrome Extension [Sense][3]
   - [ElasticSearch Head][4]
+  - [Inquisitor][6]
 
 ## Artigos
  - [Schemaless][5]
@@ -46,3 +47,4 @@ PUT _cluster/settings
 [3]: https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig
 [4]: https://github.com/mobz/elasticsearch-head
 [5]: http://martinfowler.com/articles/schemaless/
+[6]: https://github.com/polyfractal/elasticsearch-inquisitor
