@@ -1,0 +1,14 @@
+FROM elasticsearch
+
+RUN bin/plugin install mobz/elasticsearch-head
+
+USER elasticsearch
+
+CMD elasticsearch \
+  --user=elasticsearch \
+  --cluster.name=unicast \
+  --network.publish_host=es2 \
+  --discovery.zen.ping.multicast.enabled=false \
+  --discovery.zen.ping.unicast.hosts=es \
+  --discovery.zen.ping.timeout=3s \
+  --discovery.zen.minimum_master_nodes=1
