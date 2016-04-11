@@ -17,6 +17,3 @@ services:
       dockerfile: Dockerfile_es2
     volumes:
       - /mnt/sda1/data/es-training/es2:/usr/share/elasticsearch/data
-  #  ports:
-  #    - 9200:9200
-  #    - 9300:9300
