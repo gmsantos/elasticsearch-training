@@ -2,6 +2,8 @@ FROM elasticsearch
 
 RUN bin/plugin install mobz/elasticsearch-head
 
+RUN bin/plugin install polyfractal/elasticsearch-inquisitor
+
 USER elasticsearch
 
 CMD elasticsearch \

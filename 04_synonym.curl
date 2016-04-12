@@ -1,0 +1,25 @@
+PUT /my_index
+{
+    "settings": {
+        "analysis": {
+            "filter": {
+                "my_synonym_filter":{
+                    "type": "synonym",
+                    "synonyms": [
+                        "british,english",
+                        "queen,monarch"
+                    ]
+                }
+            },
+            "analyzer": {
+                "my_synonyms":{
+                    "tokenizer": "standard",
+                    "filter": [
+                        "lowercase",
+                        "my_synonym_filter"
+                    ]
+                }
+            }
+        }
+    }
+}
