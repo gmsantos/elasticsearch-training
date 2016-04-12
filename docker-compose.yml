@@ -6,6 +6,8 @@ services:
       - "9200:9200"
       - "9300:9300"
     links:
+      - logstash
+      - kibana
       - es2
       - es3
     environment:
@@ -21,3 +23,14 @@ services:
     environment:
       - ES_HOST=es3
       - OTHER_HOST=es,es2
+  kibana:
+      image: kibana
+      ports:
+        - "5601:5601"
+      environment:
+        - ELASTICSEARCH_URL=http://es:9200
+  logstash:
+      image: logstash
+      volumes:
+        - .:/var/logstash/
+      command: logstash -f /var/logstash/logstash.conf
