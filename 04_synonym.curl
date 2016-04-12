@@ -1,25 +1,74 @@
-PUT /my_index
+DELETE /blog
+PUT /blog
 {
-    "settings": {
-        "analysis": {
-            "filter": {
-                "my_synonym_filter":{
-                    "type": "synonym",
-                    "synonyms": [
-                        "british,english",
-                        "queen,monarch"
-                    ]
-                }
-            },
-            "analyzer": {
-                "my_synonyms":{
-                    "tokenizer": "standard",
-                    "filter": [
-                        "lowercase",
-                        "my_synonym_filter"
-                    ]
-                }
+   "settings": {
+      "analysis": {
+         "filter": {
+            "my_synonym_filter": {
+               "type": "synonym",
+               "synonyms": [
+                  "british,english",
+                  "queen,monarch",
+                  "gaveteiro,cachorrinho"
+               ]
             }
-        }
-    }
+         },
+         "analyzer": {
+            "my_synonyms": {
+               "tokenizer": "standard",
+               "filter": [
+                  "lowercase",
+                  "my_synonym_filter"
+               ]
+            }
+         }
+      }
+   }
+}
+
+DELETE /blog/_mapping/post
+POST /blog/_mapping/post
+{
+   "post": {
+      "properties": {
+         "title": {
+            "type": "string"
+         },
+         "author": {
+            "type": "string"
+         },
+         "email": {
+            "type": "string",
+            "index": "not_analyzed"
+         },
+         "body": {
+            "type": "string",
+            "fields": {
+               "raw": {
+                  "type": "string",
+                  "index": "not_analyzed"
+               },
+               "synonym": {
+                  "type": "string",
+                  "analyzer": "my_synonyms"
+               }
+            }
+         },
+         "createdAt": {
+            "type": "date"
+         }
+      }
+   }
+}
+
+PUT /blog/_mapping/post
+{
+   "post": {
+      "properties": {
+          "email": {
+            "type": "string",
+            "index": "not_analyzed"
+          }
+      }
+   }
 }
