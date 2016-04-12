@@ -22,11 +22,29 @@
 - Score
 - TD-IDF
 
-## Tools
+## Ferramentas
   - Chrome Extension [Sense][3]
   - [ElasticSearch Head][4]
+  - [Inquisitor][6]
+
+## Artigos
+ - [Schemaless][5]
+
+## Observações
+Para evitar erros de `high disk watermark`, usar o comando:
+
+```
+PUT _cluster/settings
+{
+  "transient": {
+    "cluster.routing.allocation.disk.threshold_enabled": "false"
+  }
+}
+```
 
 [1]: http://www.amazon.com/NoSQL-Distilled-Emerging-Polyglot-Persistence-ebook/dp/B0090J3SYW/
 [2]: https://github.com/elastic/elasticsearch
 [3]: https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig
 [4]: https://github.com/mobz/elasticsearch-head
+[5]: http://martinfowler.com/articles/schemaless/
+[6]: https://github.com/polyfractal/elasticsearch-inquisitor

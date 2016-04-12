@@ -1,26 +1,23 @@
 version: '2'
 services:
   es:
-    build:
-      context: .
-      dockerfile: ./Dockerfile_es
+    build: .
     ports:
       - "9200:9200"
       - "9300:9300"
     links:
       - es2
       - es3
+    environment:
+      - ES_HOST=es
+      - OTHER_HOST=es2,es3
   es2:
-    build:
-      context: .
-      dockerfile: ./Dockerfile_es2
-    ports:
-      - "9201:9200"
-      - "9301:9300"
+    build: .
+    environment:
+      - ES_HOST=es2
+      - OTHER_HOST=es
   es3:
-    build:
-      context: .
-      dockerfile: ./Dockerfile_es3
-    ports:
-      - "9202:9200"
-      - "9302:9300"
+    build: .
+    environment:
+      - ES_HOST=es3
+      - OTHER_HOST=es,es2
