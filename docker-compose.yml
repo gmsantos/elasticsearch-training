@@ -15,7 +15,7 @@ services:
     build: .
     environment:
       - ES_HOST=es2
-      - OTHER_HOST=es
+      - OTHER_HOST=es,es3
   es3:
     build: .
     environment:
